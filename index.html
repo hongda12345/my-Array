@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>my Array</title>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<script>
+		let arr=new myArray('a','b','c','d','e',1,2,3);
+		let arr1=new myArray(1,2,3,4,5,6,7,8,9);
+		console.log(arr);
+		arr.push('x','y','z');
+		let index=arr.indexOf('c');
+		console.log(index);
+		let lastindex=arr.lastindexOf(1);
+		console.log(lastindex);
+        let include=arr.include('e');
+		console.log(include);    
+        console.log(arr.reverse());
+        let join=arr.join('+');
+		console.log(join);
+		let Sortup=arr1.Sortup();
+		console.log(Sortup); 
+		let Sortdown=arr1.Sortdown();
+		console.log(Sortdown);
+		let some=arr.some(function(value){
+			return typeof value=='number'});
+		console.log(some); 
+		let every=arr.every(function(value){
+			return typeof value=='number'});
+		console.log(every);
+		let map=arr1.map(function(value){
+			return value*2});
+		console.log(map); 
+		let filter=arr1.filter(function(value){
+			return value%2==0});
+		console.log(filter);   
+		function myArray(){
+			for(i=0;i<arguments.length;i++){
+				this[i]=arguments[i];
+			}
+			this.length=arguments.length;
+			//push
+			this.push=function(){
+               for(let i=0;i<arguments.length;i++){
+               	this[this.length]=arguments[i];
+               	this.length++;
+               }
+			}
+			//indexOf
+			this.indexOf=function(value){
+				for(let i=0;i<this.length;i++){
+					if(this[i]==value){
+						return i;
+					}
+				}
+				return -1;
+			}
+			//lastindexOf
+			this.lastindexOf=function(value){
+				for(let i=this.length;i>-1;i--){
+					if(this[i]==value){
+						return i;
+					}
+				}
+				return -1;
+			}
+			//include
+			this.include=function(value){
+				for(let i=0;i<this.length;i++){
+					if(this[i]==value){
+						return true;
+					}
+				}
+				return false;
+			}
+            //reverse
+            this.reverse=function(){
+                let newarr=[];
+                for(let i=this.length-1;i>-1;i--){
+                	newarr[newarr.length]=this[i];
+                }
+                return newarr;
+            }
+            //join
+            this.join=function(str){
+            	var result='';
+            	 for(let i=0;i<this.length;i++){
+            	 	if(i<this.length-1){
+                	result+=this[i]+str;            	 		
+            	 	}else{
+                	result+=this[i];       	 
+            	 	}
+                }
+                return result;
+            }
+            //sort
+         //    this.sort=function(type){
+         //        type=type==undefined?'<':type;
+        	// if(type=='<'){
+        	// 	sortup();
+        	// }else if(type=='>'){
+        	// 	sortdown();
+        	// }
+         //    }
+         // 升序
+            this.Sortup=function(){
+            	let newarr=[];
+            	for(let i=0;i<this.length;i++){
+            		for(let j=i+1;j<this.length;j++){
+            			if(this[j]<this[i]){
+            				let temp=this[j];
+            				this[j]=this[i];
+            				this[i]=temp;
+            			}
+            		}
+            	}
+            	for(let k=0;k<this.length;k++){
+            		newarr[newarr.length]=this[k];
+            	}
+            	return newarr;
+            }
+         // 降序
+            this.Sortdown=function(){
+            	let newarr=[];
+            	for(let i=0;i<this.length;i++){
+            		for(let j=i+1;j<this.length;j++){
+            			if(this[j]>this[i]){
+            				let temp=this[j];
+            				this[j]=this[i];
+            				this[i]=temp;
+            			}
+            		}
+            	}
+            	for(let k=0;k<this.length;k++){
+            		newarr[newarr.length]=this[k];
+            	}
+            	return newarr;
+            }
+            // some
+               this.some=function(fn){
+               	for(let i=0;i<this.length;i++){
+               		if(fn(this[i])){
+               			return true;
+               		}
+               	}
+               	return false;
+               }
+            // every
+               this.every=function(fn){
+               	for(let i=0;i<this.length;i++){
+               		if(!fn(this[i])){
+               			return false;
+               		}
+               	}
+               	return true;
+               }
+            // map
+               this.map=function(fn){
+                let newarr=[];
+                for(let i=0;i<this.length;i++){
+                	newarr[newarr.length]=fn(this[i]);
+                }
+                return newarr;
+               }
+            // filter
+               this.filter=function(fn){
+               	let newarr=[];
+               	for(let i=0;i<this.length;i++){
+               		if(fn(this[i])){
+               			newarr[newarr.length]=this[i];
+               		}
+               	}
+               	return newarr;
+               }
+        }
+	</script>
+</body>
+</html>
